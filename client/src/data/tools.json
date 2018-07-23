@@ -1,0 +1,22 @@
+{
+  "color": [
+    { "name": "test", "user": "user", "repo": "repo" },
+    {
+      "name": "test",
+      "user": "user",
+      "repo": "repo"
+    }
+  ],
+  "visualization": [
+    {
+      "name": "test",
+      "user": "user",
+      "repo": "repo"
+    },
+    {
+      "name": "test",
+      "user": "user",
+      "repo": "repo"
+    }
+  ]
+}
