@@ -1,16 +1,34 @@
-import React, { Component } from "react";
+import React from "react";
 import ToolSection from "./components/ToolSection";
-import Menu from "./components/Menu";
 import { json } from "d3-fetch";
 import { nest } from "d3-collection";
-import styled from "styled-components";
+import styled, { injectGlobal, ThemeProvider } from "styled-components";
+import styledNormalize from "styled-normalize";
+import theme from "./theme";
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.handler = this.handler.bind(this);
+injectGlobal`
+  ${styledNormalize}
+  body {
+    color: #111;
+    background-color: rgb(250, 250, 250);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   }
+`;
 
+const Wrapper = styled.div`
+  max-width: 64rem;
+  padding: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+`;
+
+const Description = styled.p`
+  font-size: 1rem;
+  max-width: 34em;
+  line-height: 1.5;
+`
+
+class App extends React.Component {
   state = {
     tools: []
   };
@@ -28,25 +46,23 @@ class App extends Component {
     });
   }
 
-  handler(e) {
-    e.preventDefault();
-    console.log(e);
-    // const filteredTools = tools.filter(category => category.hasOwnProperty(e.))
-    this.setState({
-      tools: []
-    });
-  }
-
   render() {
     return (
-      <Wrapper>
-        <header className="App-header">
-          <Menu handler={this.handler} />
-        </header>
-        {this.state.tools.map(tool => (
-          <ToolSection tools={tool.values} category={tool.key} key={tool.key} />
-        ))}
-      </Wrapper>
+      <ThemeProvider theme={theme}>
+        <Wrapper>
+          <header>
+            <h1>Data Viz Tools</h1>
+            <Description>An opinionated collection of tools for data visualization, exploration, and analysis. These are mostly things that I've used before and would recommend to other people. It's certainly not comprehensive.</Description>
+          </header>
+          {this.state.tools.map(tool => (
+            <ToolSection
+              tools={tool.values}
+              category={tool.key}
+              key={tool.key}
+            />
+          ))}
+        </Wrapper>
+      </ThemeProvider>
     );
   }
 }
